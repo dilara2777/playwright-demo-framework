@@ -1,0 +1,27 @@
+{
+  "description": "Demo Playwright + TypeScript E2E test framework built from scratch against the public SauceDemo site",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.73.0"
+  },
+  "name": "playwright-demo-framework",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "report": "playwright show-report",
+    "test": "playwright test",
+    "test:debug": "playwright test --debug",
+    "test:headed": "playwright test --headed",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:ui": "playwright test --ui",
+    "typecheck": "tsc --noEmit"
+  },
+  "version": "1.0.0"
+}
