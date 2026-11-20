@@ -51,7 +51,7 @@ export class InventoryPage {
   }
 
   async cartItemCount(): Promise<number> {
-    if (await this.cartBadge.count() === 0) return 0;
+    if ((await this.cartBadge.count()) === 0) return 0;
     return Number(await this.cartBadge.textContent());
   }
 

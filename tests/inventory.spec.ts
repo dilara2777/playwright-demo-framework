@@ -17,7 +17,7 @@ test.describe('Inventory', () => {
     expect(prices).toEqual(sorted);
   });
 
-  test('adding products updates the cart badge', async ({ loggedIn }) => {
+  test('adding products updates the cart badge', { tag: '@smoke' }, async ({ loggedIn }) => {
     expect(await loggedIn.cartItemCount()).toBe(0);
 
     await loggedIn.addToCartByName('Sauce Labs Backpack');

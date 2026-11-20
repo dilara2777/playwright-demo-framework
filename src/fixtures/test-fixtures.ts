@@ -5,12 +5,20 @@ import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { users } from '../data/users';
 
+type DemoUserKey = keyof typeof users;
+
 type Fixtures = {
   loginPage: LoginPage;
   inventoryPage: InventoryPage;
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
-  /** Logs in as standard_user and lands on the inventory page. */
+  /**
+   * Which demo user the `loggedIn` fixture signs in as.
+   * Override per file with `test.use({ currentUser: 'problem' })`.
+   * Only users who can log in work here (not `lockedOut`).
+   */
+  currentUser: DemoUserKey;
+  /** Logs in as `currentUser` and lands on the inventory page. */
   loggedIn: InventoryPage;
 };
 
@@ -27,10 +35,11 @@ export const test = base.extend<Fixtures>({
   checkoutPage: async ({ page }, use) => {
     await use(new CheckoutPage(page));
   },
-  loggedIn: async ({ page }, use) => {
+  currentUser: ['standard', { option: true }],
+  loggedIn: async ({ page, currentUser }, use) => {
     const login = new LoginPage(page);
     await login.goto();
-    await login.login(users.standard);
+    await login.login(users[currentUser]);
     // Wait for the inventory page to actually render before handing the
     // page over: reads like allTextContents() do NOT auto-wait in Playwright.
     await page.waitForURL('**/inventory.html');

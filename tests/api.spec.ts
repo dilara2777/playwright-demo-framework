@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
  * against the public JSONPlaceholder fake REST API.
  * Same framework, same runner — UI and API coverage in one place.
  */
-test.describe('API (JSONPlaceholder)', () => {
+test.describe('API (JSONPlaceholder)', { tag: '@api' }, () => {
   const baseURL = 'https://jsonplaceholder.typicode.com';
 
   test('GET /posts/1 returns the expected resource', async ({ request }) => {
@@ -46,8 +46,17 @@ test.describe('API (JSONPlaceholder)', () => {
     expect(body.id).toBeDefined();
   });
 
-  test('GET /posts/99999 returns 404', async ({ request }) => {
+  test('GET /posts/99999 returns 404 with an empty body', async ({ request }) => {
     const response = await request.get(`${baseURL}/posts/99999`);
+    expect(response.status()).toBe(404);
+    const body = await response.json();
+    expect(body).toEqual({});
+  });
+
+  test('POST to an unknown route returns 404', async ({ request }) => {
+    const response = await request.post(`${baseURL}/unknown-route`, {
+      data: { title: 'should not be created' },
+    });
     expect(response.status()).toBe(404);
   });
 });

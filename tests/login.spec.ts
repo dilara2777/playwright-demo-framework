@@ -2,13 +2,17 @@ import { test, expect } from '../src/fixtures/test-fixtures';
 import { users, DEMO_PASSWORD } from '../src/data/users';
 
 test.describe('Login', () => {
-  test('valid credentials open the inventory page', async ({ loginPage, page }) => {
-    await loginPage.goto();
-    await loginPage.login(users.standard);
+  test(
+    'valid credentials open the inventory page',
+    { tag: '@smoke' },
+    async ({ loginPage, page }) => {
+      await loginPage.goto();
+      await loginPage.login(users.standard);
 
-    await expect(page).toHaveURL(/inventory\.html/);
-    await expect(page.locator('.title')).toHaveText('Products');
-  });
+      await expect(page).toHaveURL(/inventory\.html/);
+      await expect(page.locator('.title')).toHaveText('Products');
+    },
+  );
 
   test('locked-out user sees an error message', async ({ loginPage }) => {
     await loginPage.goto();
