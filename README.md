@@ -27,7 +27,7 @@ This is a portfolio demo project written from scratch for learning and demonstra
 ```
 playwright.config.ts      # baseURL, retries, trace/screenshot/video on failure, HTML reporter
 eslint.config.mjs         # ESLint flat config (recommended JS + typescript-eslint)
-.prettierrc               # Prettier: single quotes, trailing commas, print width 100
+.prettierrc.json               # Prettier: single quotes, trailing commas, print width 100
 src/
   pages/                  # Page Object Model: LoginPage, InventoryPage, CartPage, CheckoutPage
   fixtures/               # test.extend fixtures (page objects + logged-in session)
